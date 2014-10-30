@@ -26,10 +26,20 @@ for i=1:N
         idx = dist < bandwidth/2;
         
         %compute mean
-        if sum(idx)>0
+        if sum(idx)==1 %avoid bug of bsxfun for 1 point
+            Xmean = X(idx,:);
+        elseif sum(idx)>1
             Xmean = sum(bsxfun(@times,X(idx,:),w(idx,:))) / sum(w(idx,:)) ;
         else
             break;
+        end
+        
+        if i==617
+            fprintf('----------\n');
+            disp(sum(idx));
+            disp(X(idx,:));
+            disp(Xi);
+            disp(Xmean);
         end
         
         %update
@@ -51,7 +61,7 @@ end
 
 %get the cluster centers
 
-distThresh = bandwidth;
+distThresh = norm(max(X)-min(X))/100;
 CMemberships = zeros(N,1);
 CCenters = Xfinal(1,:);
 CMemberships(1) = 1;

@@ -17,3 +17,9 @@ for cIdx = 1:clusterNum
     tempCenter = clusterCenters(cIdx,:);
     plot(clusterCenters(cIdx,1),clusterCenters(cIdx,2),'k+','MarkerSize',10,'lineWidth',2)      
 end
+
+%{
+CCenters = clusterCenters;
+CMemberships = clusterMemberships;
+save('q21_result.mat','CCenters','CMemberships', 'clusterCenters', 'clusterMemberships');
+%}

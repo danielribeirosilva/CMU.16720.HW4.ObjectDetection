@@ -10,6 +10,8 @@ X = data(:,1:end-1);
 Xfinal = zeros(N,F);
 for i=1:N
     
+    %fprintf('I: %i\n', i);
+    
     %do mean shift for point Xi
     Xi = X(i,:);
     %initialize diff
@@ -27,33 +29,29 @@ for i=1:N
         if sum(idx)>0
             Xmean = sum(bsxfun(@times,X(idx,:),w(idx,:))) / sum(w(idx,:)) ;
         else
-            Xmean = zeros(1,F);
+            break;
         end
         
         %update
         XiOld = Xi;
-        Xi = Xi + Xmean;
+        Xi = Xmean;
         
         %compute diff
         diff = norm(Xi - XiOld);
         
-        disp(Xi);
-        disp(Xmean);
-        fprintf('considered points: %i\n', sum(idx));
-        fprintf('diff: %d\n\n', diff);
+        %fprintf('considered points: %i\n', sum(idx));
+        %fprintf('diff: %d\n\n', diff);
         
     end
     
     Xfinal(i,:) = Xi;
-    
-    break;
     
 end
 
 
 %get the cluster centers
 
-distThresh = 0.05;
+distThresh = bandwidth;
 CMemberships = zeros(N,1);
 CCenters = Xfinal(1,:);
 CMemberships(1) = 1;
@@ -70,12 +68,6 @@ for i=2:N
     end
     
 end
-
-
-
-
-CCenters = [];
-CMemberships = [];
 
 
 end

@@ -1,8 +1,8 @@
 clear all;
 load('q21_data.mat');
 
-bandwidth =10;  % This is an example. You may need to adjust this value
-threshold = bandwidth*0.01; % This is an example. You may need to adjust this value
+bandwidth = 50;  % This is an example. You may need to adjust this value
+threshold = bandwidth*0.001; % This is an example. You may need to adjust this value
 [clusterCenters,clusterMemberships] = MeanShift(data,bandwidth,threshold);
 
 %% Draw

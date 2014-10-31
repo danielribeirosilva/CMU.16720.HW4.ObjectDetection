@@ -4,7 +4,7 @@ addpath(genpath('../lib/dpm'));
 load('../../data/bus_dpm.mat');
 
 %% Object detection via DPMs
-I = imread('q42_test.jpg');
+I = imread('q42_test_5.jpg');
 detectionBoxes = imgdetect(I,model);
 figure; showboxes(I,  detectionBoxes);      %% show detected bounding boxes.
 
